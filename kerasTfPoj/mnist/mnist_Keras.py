@@ -73,7 +73,7 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1]) # 准确度
 
 
-model.save('mnist_model_weights.h5')
+model.save('mnist_model_weights.h5') # 保存训练模型
 
 
 

@@ -5,7 +5,7 @@ import numpy as np
 from keras.models import load_model
 
 # 构建模型
-model = load_model('mnist_model_weights.h5')
+model = load_model('mnist_model_weights.h5') # 加载训练模型
 # model.summary()
 
 def read_image(img_name):
