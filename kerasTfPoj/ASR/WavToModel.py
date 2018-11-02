@@ -11,7 +11,7 @@ from keras.layers import Dense
 # 加载数据集 和 标签[并返回标签集的处理结果]
 def create_datasets():
     wavs=[]
-    labels=[]
+    labels=[] # labels 和 testlabels 这里面存的值都是对应标签的下标，下标对应的名字在labsInd中
     testwavs=[]
     testlabels=[]
 
@@ -22,7 +22,7 @@ def create_datasets():
     files = os.listdir(path)
     for i in files:
         # print(i)
-        waveData = get_wav_mffc(path+i)
+        waveData = get_wav_mfcc(path+i)
         # print(waveData)
         wavs.append(waveData)
         if ("seven" in labsInd)==False:
@@ -33,17 +33,18 @@ def create_datasets():
     files = os.listdir(path)
     for i in files:
         # print(i)
-        waveData = get_wav_mffc(path+i)
+        waveData = get_wav_mfcc(path+i)
         wavs.append(waveData)
         if ("stop" in labsInd)==False:
             labsInd.append("stop")
         labels.append(labsInd.index("stop"))
 
+    # 现在为了测试方便和快速直接写死，后面需要改成自动扫描文件夹和标签的形式
     path="D:\\wav\\test1\\"
     files = os.listdir(path)
     for i in files:
         # print(i)
-        waveData = get_wav_mffc(path+i)
+        waveData = get_wav_mfcc(path+i)
         testwavs.append(waveData)
         if ("seven" in testlabsInd)==False:
             testlabsInd.append("seven")
@@ -54,7 +55,7 @@ def create_datasets():
     files = os.listdir(path)
     for i in files:
         # print(i)
-        waveData = get_wav_mffc(path+i)
+        waveData = get_wav_mfcc(path+i)
         testwavs.append(waveData)
         if ("stop" in testlabsInd)==False:
             testlabsInd.append("stop")
@@ -67,7 +68,7 @@ def create_datasets():
     return (wavs,labels),(testwavs,testlabels),(labsInd,testlabsInd)
 
 
-def get_wav_mffc(wav_path):
+def get_wav_mfcc(wav_path):
     f = wave.open(wav_path,'rb')
     params = f.getparams()
     # print("params:",params)
@@ -88,7 +89,7 @@ def get_wav_mffc(wav_path):
     # plt.title('wa')
     # plt.show()
 
-    ### 对音频数据进行长度大小的切割，保证每一个的长度都是一样的
+    ### 对音频数据进行长度大小的切割，保证每一个的长度都是一样的【因为训练文件全部是1秒钟长度，16000帧的，所以这里需要把每个语音文件的长度处理成一样的】
     data = list(np.array(waveData[0]))
     # print(len(data))
     while len(data)>16000:
