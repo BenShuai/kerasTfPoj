@@ -15,6 +15,7 @@ def read_image(img_name):
 
 images=[]
 images.append(read_image("test.png"))
+# print(images)
 
 X = np.array(images)
 print(X.shape)
@@ -25,7 +26,7 @@ X /=255
 result=model.predict(X[0:1])[0] # 识别出第一张图的结果，多张图的时候，把后面的[0] 去掉，返回的就是多张图结果
 num=0 # 用来分析预测的结果
 for i in range(len(result)): # result的长度是10
-    print(result[i]*255)
+    # print(result[i]*255)
     if result[i]*255>result[num]*255: # 值越大，就越可能是结果
         num=i
 

@@ -1,7 +1,6 @@
 import tensorflow as tf
 
 import keras
-from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Dense,Dropout, Flatten,Conv2D, MaxPooling2D
 from keras.optimizers import SGD
@@ -41,22 +40,18 @@ x_test = x_test.reshape(10000, 784).astype('float32')
 x_train /= 255
 x_test /= 255
 
-print(x_train.shape,"  ",y_train.shape)
-print(x_test.shape,"  ",y_test.shape)
-
-print(x_train[0])
+# print(x_train[0])
 
 # 标签转换为独热码
 y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
-print(y_train[0]) ## 类似 [0. 0. 0. 0. 0. 1. 0. 0. 0. 0.]
+# print(y_train[0]) ## 类似 [0. 0. 0. 0. 0. 1. 0. 0. 0. 0.]
+
+print(x_train.shape,"  ",y_train.shape)
+print(x_test.shape,"  ",y_test.shape)
 
 # 构建模型
 model = Sequential()
-
-
-
-
 model.add(Dense(512, activation='relu',input_shape=(784,)))
 model.add(Dense(256, activation='relu'))
 model.add(Dense(num_classes, activation='softmax'))
