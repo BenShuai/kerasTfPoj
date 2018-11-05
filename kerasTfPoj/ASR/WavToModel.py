@@ -1,3 +1,6 @@
+'''
+使用案例，训练两个类型的语音，然后测试，对CPU和内存要求不高。内存使用在 1G 左右
+'''
 import wave
 import matplotlib.pyplot as plt
 import numpy as np
@@ -6,6 +9,7 @@ import os
 import keras
 from keras.models import Sequential
 from keras.layers import Dense
+
 
 
 # 加载数据集 和 标签[并返回标签集的处理结果]
@@ -139,6 +143,5 @@ if __name__ == '__main__':
     score = model.evaluate(testwavs, testlabels, verbose=0)
     print('Test loss:', score[0])
     print('Test accuracy:', score[1]) # 准确度
-
 
     model.save('asr_model_weights.h5') # 保存训练模型
